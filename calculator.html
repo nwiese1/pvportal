@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>PV Portal</title>
+<title>PV Portal - Calculator</title>
 <link rel="icon" type="image/png" href="https://i.postimg.cc/W3xkS5pB/download.png" />
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
@@ -43,6 +43,7 @@
     font-weight: 600;
     font-size: 15px;
   }
+
   .calculator-container {
     flex-grow: 1;
     width: 100%;
@@ -52,9 +53,10 @@
     padding: 24px;
     overflow: hidden;
   }
+
   #display {
     font-size: 2.2rem;
-    color: #E4E4E4;
+    color: #EAEAEA;
     background: #333;
     border-radius: 12px;
     min-height: 64px;
@@ -66,16 +68,15 @@
     resize: none;
     color-scheme: dark;
   }
+
   .keys {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    flex-grow: 1;
-    grid-template-rows: repeat(6, auto);
   }
+
+  /* --- BUTTON COLORS --- */
   .key {
-    background: #ababab;
-    color: #000;
     border: none;
     border-radius: 8px;
     padding: 18px 0;
@@ -87,34 +88,52 @@
     align-items: center;
     transition: background 0.2s;
   }
-  .key:hover,
-  .key:focus {
-    background: #bbb;
-    outline: none;
+  .key.number {
+    background: #3C4043;
+    color: #EAEAEA;
   }
+  .key.number:hover { background: #4a4f52; }
+
+  .key.operator {
+    background: #F57C00;
+    color: white;
+    font-weight: bold;
+  }
+  .key.operator:hover { background: #ff8f23; }
+
+  .key.function {
+    background: #5C6BC0;
+    color: white;
+  }
+  .key.function:hover { background: #7986CB; }
+
   .key.special {
     background: #757575;
     color: #000;
   }
+
   .key.equal {
-    grid-column: 5 / 6;
-    grid-row: 6 / 7;
-    background: #757575;
-  }
-  .key.c-button {
+    background: #2E7D32;
     grid-column: 4 / 5;
-    grid-row: 6 / 7;
-    background: #757575;
+    grid-row: 5 / 7;
+    color: white;
+    font-weight: bold;
   }
+  .key.equal:hover { background: #388E3C; }
+
+  .key.c-button {
+    background: #D32F2F;
+    color: white;
+  }
+  .key.c-button:hover { background: #E53935; }
+
   .key.del-button {
-    grid-column: 3 / 4;
-    grid-row: 6 / 7;
-    background: #757575;
+    background: #607D8B;
+    color: white;
   }
+  .key.del-button:hover { background: #78909C; }
+
   @media screen and (max-width: 500px) {
-    .calculator-container {
-      padding: 16px 10px;
-    }
     #display {
       font-size: 1.6rem;
       min-height: 50px;
@@ -138,44 +157,43 @@
   <div class="calculator-container">
     <textarea id="display" rows="1" spellcheck="false"></textarea>
     <div class="keys">
-      <button class="key" onclick="add('(')">(</button>
-      <button class="key" onclick="add(')')">)</button>
-      <button class="key" onclick="add('^')">^</button>
-      <button class="key" onclick="add('sqrt(')">√</button>
-      <button class="key" onclick="add('!')">x!</button>
+      <!-- First row -->
+      <button class="key function" onclick="add('sqrt(')">√</button>
+      <button class="key function" onclick="add('log(')">log</button>
+      <button class="key function" onclick="add('exp(')">exp</button>
+      <button class="key operator" onclick="add('/')">÷</button>
 
-      <button class="key" onclick="add('7')">7</button>
-      <button class="key" onclick="add('8')">8</button>
-      <button class="key" onclick="add('9')">9</button>
-      <button class="key.special" onclick="add('/')">÷</button>
-      <button class="key" onclick="add('pi')">π</button>
+      <!-- Second row -->
+      <button class="key number" onclick="add('7')">7</button>
+      <button class="key number" onclick="add('8')">8</button>
+      <button class="key number" onclick="add('9')">9</button>
+      <button class="key operator" onclick="add('*')">×</button>
 
-      <button class="key" onclick="add('4')">4</button>
-      <button class="key" onclick="add('5')">5</button>
-      <button class="key" onclick="add('6')">6</button>
-      <button class="key.special" onclick="add('*')">×</button>
-      <button class="key" onclick="add('e')">e</button>
+      <!-- Third row -->
+      <button class="key number" onclick="add('4')">4</button>
+      <button class="key number" onclick="add('5')">5</button>
+      <button class="key number" onclick="add('6')">6</button>
+      <button class="key operator" onclick="add('-')">−</button>
 
-      <button class="key" onclick="add('1')">1</button>
-      <button class="key" onclick="add('2')">2</button>
-      <button class="key" onclick="add('3')">3</button>
-      <button class="key.special" onclick="add('-')">−</button>
-      <button class="key.special" onclick="add('.')">.</button>
+      <!-- Fourth row -->
+      <button class="key number" onclick="add('1')">1</button>
+      <button class="key number" onclick="add('2')">2</button>
+      <button class="key number" onclick="add('3')">3</button>
+      <button class="key operator" onclick="add('+')">+</button>
 
-      <button class="key" onclick="add('0')">0</button>
-      <button class="key.special" onclick="add('+')">+</button>
-      <button class="key" onclick="add('log(')">log</button>
-      <button class="key" onclick="add('exp(')">exp</button>
-      <button class="key" onclick="add('sin(')">sin</button>
-      <button class="key" onclick="add('cos(')">cos</button>
-      <button class="key" onclick="add('tan(')">tan</button>
-
+      <!-- Fifth row -->
+      <button class="key number" onclick="add('0')">0</button>
+      <button class="key special" onclick="add('.')">.</button>
       <button class="key del-button" onclick="del()">⌫</button>
-      <button class="key c-button" onclick="cl()">C</button>
       <button class="key equal" onclick="compute()">=</button>
+
+      <!-- Sixth row -->
+      <button class="key c-button" onclick="cl()">C</button>
+      <button class="key function" onclick="add('pi')">π</button>
+      <button class="key function" onclick="add('e')">e</button>
+      <!-- = button spans into this row -->
     </div>
   </div>
-
   <script>
     const display = document.getElementById("display");
     function add(v) {
@@ -193,7 +211,7 @@
     function del() {
       const start = display.selectionStart;
       const end = display.selectionEnd;
-      if(start === end && start > 0){
+      if (start === end && start > 0) {
         display.value = display.value.slice(0, start - 1) + display.value.slice(end);
         display.selectionStart = display.selectionEnd = start - 1;
       } else {
