@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>PV Portal</title>
-<link rel="icon" type="image/png" href="https://i.postimg.cc/W3xkS5pB/download.png" />
+<title>Calculator</title>
+<link rel="icon" type="image/png" href="https://i.postimg.cc/PqqSS3dH/1f522.png" />
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 <style>
@@ -17,6 +17,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
   .app-bar {
     background-color: #202124;
@@ -27,6 +28,7 @@
     padding: 0 1rem;
     font-size: 16px;
     border-bottom: 1px solid #444;
+    flex-shrink: 0;
     z-index: 5;
   }
   .app-bar-left {
@@ -48,8 +50,9 @@
     display: flex;
     flex-direction: column;
     padding: 24px;
+    overflow: hidden;
   }
-  .display {
+  #display {
     font-size: 2.2rem;
     color: #E4E4E4;
     background: #333;
@@ -58,51 +61,49 @@
     padding: 12px 20px;
     margin-bottom: 26px;
     text-align: right;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.18);
     border: none;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
+    outline: none;
+    resize: none;
+    color-scheme: dark;
   }
   .keys {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
     flex-grow: 1;
   }
   .key {
-    background: #292929;
+    background: #2980b9; /* light blue */
     color: #fff;
     border: none;
     border-radius: 8px;
     padding: 18px 0;
     font-size: 1.4rem;
     cursor: pointer;
-    outline: none;
     user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background 0.22s;
+    transition: background 0.2s;
   }
-  .key:active,
-  .key:hover {
-    background: #3a3a3a;
+  .key:hover,
+  .key:focus {
+    background: #3498db;
+    outline: none;
   }
   .key.special {
-    background: #1db954;
-    color: #181818;
+    background: #2980b9;
+    color: #fff;
   }
   .key.equal {
-    grid-column: span 2;
-    background: #1db954;
-    color: #181818;
+    background: #3498db;
+    grid-column: 4 / 6;
   }
   @media screen and (max-width: 500px) {
     .calculator-container {
       padding: 16px 10px;
     }
-    .display {
+    #display {
       font-size: 1.6rem;
       min-height: 50px;
       padding: 8px 12px;
@@ -123,7 +124,7 @@
     </div>
   </div>
   <div class="calculator-container">
-    <input id="display" class="display" type="text" readonly />
+    <textarea id="display" rows="1" spellcheck="false"></textarea>
     <div class="keys">
       <button class="key" onclick="add('(')">(</button>
       <button class="key" onclick="add(')')">)</button>
@@ -164,10 +165,31 @@
   </div>
 
   <script>
-    let display = document.getElementById("display");
-    function add(v) { display.value += v; }
-    function cl() { display.value = ""; }
-    function del() { display.value = display.value.slice(0, -1); }
+    const display = document.getElementById("display");
+    function add(v) {
+      const start = display.selectionStart;
+      const end = display.selectionEnd;
+      const text = display.value;
+      display.value = text.substring(0, start) + v + text.substring(end);
+      display.selectionStart = display.selectionEnd = start + v.length;
+      display.focus();
+    }
+    function cl() {
+      display.value = "";
+      display.focus();
+    }
+    function del() {
+      const start = display.selectionStart;
+      const end = display.selectionEnd;
+      if(start === end && start > 0){
+        display.value = display.value.slice(0, start - 1) + display.value.slice(end);
+        display.selectionStart = display.selectionEnd = start - 1;
+      } else {
+        display.value = display.value.slice(0, start) + display.value.slice(end);
+        display.selectionStart = display.selectionEnd = start;
+      }
+      display.focus();
+    }
     function compute() {
       let expr = display.value;
       expr = expr.replace(/π|pi/g, "pi");
@@ -176,11 +198,19 @@
       try {
         let result = math.evaluate(expr);
         display.value = result;
+        display.selectionStart = display.selectionEnd = display.value.length;
       } catch {
         display.value = "Error";
         setTimeout(() => cl(), 1500);
       }
+      display.focus();
     }
+    display.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        compute();
+      }
+    });
   </script>
 </body>
 </html>
