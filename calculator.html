@@ -1,91 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Scientific Calculator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: 'Quicksand', sans-serif;
-    }
-    body {
-      width: 100vw;
-      height: 100vh;
-      background: #181818;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .calculator {
-      background: #222;
-      border-radius: 24px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25), 0 1.5px 8px rgba(0,0,0,0.15);
-      padding: 32px 24px;
-      max-width: 420px;
-      width: 100vw;
-      height: 100vh;
-      max-height: 740px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+<meta charset="UTF-8" />
+<title>PV Portal</title>
+<link rel="icon" type="image/png" href="https://i.postimg.cc/W3xkS5pB/download.png" />
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+<style>
+  * {
+    font-family: 'Quicksand', sans-serif;
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background-color: #202124;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .app-bar {
+    background-color: #202124;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    font-size: 16px;
+    border-bottom: 1px solid #444;
+    z-index: 5;
+  }
+  .app-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .app-bar-left img {
+    height: 24px;
+  }
+  .app-bar-left span {
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .calculator-container {
+    flex-grow: 1;
+    width: 100%;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+  }
+  .display {
+    font-size: 2.2rem;
+    color: #E4E4E4;
+    background: #333;
+    border-radius: 12px;
+    min-height: 64px;
+    padding: 12px 20px;
+    margin-bottom: 26px;
+    text-align: right;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.18);
+    border: none;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+  .keys {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 12px;
+    flex-grow: 1;
+  }
+  .key {
+    background: #292929;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 18px 0;
+    font-size: 1.4rem;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.22s;
+  }
+  .key:active,
+  .key:hover {
+    background: #3a3a3a;
+  }
+  .key.special {
+    background: #1db954;
+    color: #181818;
+  }
+  .key.equal {
+    grid-column: span 2;
+    background: #1db954;
+    color: #181818;
+  }
+  @media screen and (max-width: 500px) {
+    .calculator-container {
+      padding: 16px 10px;
     }
     .display {
-      font-size: 2.2rem;
-      color: #E4E4E4;
-      background: #333;
-      border-radius: 12px;
-      min-height: 64px;
-      padding: 12px 10px;
-      margin-bottom: 26px;
-      text-align: right;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.18);
-      word-break: break-all;
-      border: none;
-    }
-    .keys {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
+      font-size: 1.6rem;
+      min-height: 50px;
+      padding: 8px 12px;
+      margin-bottom: 18px;
     }
     .key {
-      background: #292929;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 18px 0;
-      font-size: 1.4rem;
-      font-family: 'Quicksand', sans-serif;
-      cursor: pointer;
-      transition: background 0.22s;
-      outline: none;
-      user-select: none;
+      font-size: 1rem;
+      padding: 14px 0;
     }
-    .key:active, .key:hover {
-      background: #3a3a3a;
-    }
-    .key.special {
-      background: #1db954;
-      color: #181818;
-    }
-    @media screen and (max-width: 500px) {
-      .calculator {
-        max-width: 100vw;
-        max-height: 100vh;
-        padding: 12px 4px;
-      }
-      .display { font-size: 1.4rem; min-height: 45px; }
-      .key { font-size: 1rem; }
-      .keys { gap: 7px; }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="calculator">
+  <div class="app-bar">
+    <div class="app-bar-left">
+      <img src="https://i.postimg.cc/W3xkS5pB/download.png" alt="Logo" />
+      <span>PV Portal</span>
+    </div>
+  </div>
+  <div class="calculator-container">
     <input id="display" class="display" type="text" readonly />
     <div class="keys">
       <button class="key" onclick="add('(')">(</button>
@@ -93,21 +130,25 @@
       <button class="key" onclick="add('^')">^</button>
       <button class="key" onclick="add('sqrt(')">√</button>
       <button class="key" onclick="add('!')">x!</button>
+
       <button class="key" onclick="add('7')">7</button>
       <button class="key" onclick="add('8')">8</button>
       <button class="key" onclick="add('9')">9</button>
       <button class="key" onclick="add('/')">÷</button>
       <button class="key" onclick="add('pi')">π</button>
+
       <button class="key" onclick="add('4')">4</button>
       <button class="key" onclick="add('5')">5</button>
       <button class="key" onclick="add('6')">6</button>
       <button class="key" onclick="add('*')">×</button>
       <button class="key" onclick="add('e')">e</button>
+
       <button class="key" onclick="add('1')">1</button>
       <button class="key" onclick="add('2')">2</button>
       <button class="key" onclick="add('3')">3</button>
       <button class="key" onclick="add('-')">−</button>
       <button class="key" onclick="add('.')">.</button>
+
       <button class="key" onclick="add('0')">0</button>
       <button class="key" onclick="add('+')">+</button>
       <button class="key" onclick="add('log(')">log</button>
@@ -115,27 +156,29 @@
       <button class="key" onclick="add('sin(')">sin</button>
       <button class="key" onclick="add('cos(')">cos</button>
       <button class="key" onclick="add('tan(')">tan</button>
+
       <button class="key special" onclick="del()">⌫</button>
       <button class="key special" onclick="cl()">C</button>
-      <button class="key special" style="grid-column: span 2;" onclick="compute()">=</button>
+      <button class="key equal" onclick="compute()">=</button>
     </div>
   </div>
+
   <script>
-    let display = document.getElementById("display")
-    function add(v){display.value+=v}
-    function cl(){display.value=""}
-    function del(){display.value=display.value.slice(0,-1)}
-    function compute(){
-      let expr=display.value
-      expr = expr.replace(/π|pi/g,"pi")
-      expr = expr.replace(/÷/g,"/")
-      expr = expr.replace(/×/g,"*")
-      try{
-        let result=math.evaluate(expr)
-        display.value=result
-      }catch{
-        display.value="Error"
-        setTimeout(()=>cl(),1500)
+    let display = document.getElementById("display");
+    function add(v) { display.value += v; }
+    function cl() { display.value = ""; }
+    function del() { display.value = display.value.slice(0, -1); }
+    function compute() {
+      let expr = display.value;
+      expr = expr.replace(/π|pi/g, "pi");
+      expr = expr.replace(/÷/g, "/");
+      expr = expr.replace(/×/g, "*");
+      try {
+        let result = math.evaluate(expr);
+        display.value = result;
+      } catch {
+        display.value = "Error";
+        setTimeout(() => cl(), 1500);
       }
     }
   </script>
