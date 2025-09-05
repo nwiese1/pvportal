@@ -74,7 +74,7 @@
     grid-template-rows: repeat(6, auto);
   }
   .key {
-    background: #d3d3d3; /* light grey */
+    background: #ababab;
     color: #000;
     border: none;
     border-radius: 8px;
@@ -93,20 +93,23 @@
     outline: none;
   }
   .key.special {
-    background: #d3d3d3;
+    background: #757575;
     color: #000;
   }
   .key.equal {
     grid-column: 5 / 6;
     grid-row: 6 / 7;
+    background: #757575;
   }
   .key.c-button {
     grid-column: 4 / 5;
     grid-row: 6 / 7;
+    background: #757575;
   }
   .key.del-button {
     grid-column: 3 / 4;
     grid-row: 6 / 7;
+    background: #757575;
   }
   @media screen and (max-width: 500px) {
     .calculator-container {
@@ -128,8 +131,8 @@
 <body>
   <div class="app-bar">
     <div class="app-bar-left">
-      <img src="https://i.postimg.cc/W3xkS5pB/download.png" alt="Logo" />
-      <span>PV Portal</span>
+      <img src="https://i.postimg.cc/PqqSS3dH/1f522.png" alt="Logo" />
+      <span>Calculator</span>
     </div>
   </div>
   <div class="calculator-container">
@@ -144,23 +147,23 @@
       <button class="key" onclick="add('7')">7</button>
       <button class="key" onclick="add('8')">8</button>
       <button class="key" onclick="add('9')">9</button>
-      <button class="key" onclick="add('/')">÷</button>
+      <button class="key.special" onclick="add('/')">÷</button>
       <button class="key" onclick="add('pi')">π</button>
 
       <button class="key" onclick="add('4')">4</button>
       <button class="key" onclick="add('5')">5</button>
       <button class="key" onclick="add('6')">6</button>
-      <button class="key" onclick="add('*')">×</button>
+      <button class="key.special" onclick="add('*')">×</button>
       <button class="key" onclick="add('e')">e</button>
 
       <button class="key" onclick="add('1')">1</button>
       <button class="key" onclick="add('2')">2</button>
       <button class="key" onclick="add('3')">3</button>
-      <button class="key" onclick="add('-')">−</button>
-      <button class="key" onclick="add('.')">.</button>
+      <button class="key.special" onclick="add('-')">−</button>
+      <button class="key.special" onclick="add('.')">.</button>
 
       <button class="key" onclick="add('0')">0</button>
-      <button class="key" onclick="add('+')">+</button>
+      <button class="key.special" onclick="add('+')">+</button>
       <button class="key" onclick="add('log(')">log</button>
       <button class="key" onclick="add('exp(')">exp</button>
       <button class="key" onclick="add('sin(')">sin</button>
