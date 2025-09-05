@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Calculator</title>
-<link rel="icon" type="image/png" href="https://i.postimg.cc/PqqSS3dH/1f522.png" />
+<title>PV Portal</title>
+<link rel="icon" type="image/png" href="https://i.postimg.cc/W3xkS5pB/download.png" />
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 <style>
@@ -71,10 +71,11 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
     flex-grow: 1;
+    grid-template-rows: repeat(6, auto);
   }
   .key {
-    background: #2980b9; /* light blue */
-    color: #fff;
+    background: #d3d3d3; /* light grey */
+    color: #000;
     border: none;
     border-radius: 8px;
     padding: 18px 0;
@@ -88,16 +89,24 @@
   }
   .key:hover,
   .key:focus {
-    background: #3498db;
+    background: #bbb;
     outline: none;
   }
   .key.special {
-    background: #2980b9;
-    color: #fff;
+    background: #d3d3d3;
+    color: #000;
   }
   .key.equal {
-    background: #3498db;
-    grid-column: 4 / 6;
+    grid-column: 5 / 6;
+    grid-row: 6 / 7;
+  }
+  .key.c-button {
+    grid-column: 4 / 5;
+    grid-row: 6 / 7;
+  }
+  .key.del-button {
+    grid-column: 3 / 4;
+    grid-row: 6 / 7;
   }
   @media screen and (max-width: 500px) {
     .calculator-container {
@@ -158,8 +167,8 @@
       <button class="key" onclick="add('cos(')">cos</button>
       <button class="key" onclick="add('tan(')">tan</button>
 
-      <button class="key special" onclick="del()">⌫</button>
-      <button class="key special" onclick="cl()">C</button>
+      <button class="key del-button" onclick="del()">⌫</button>
+      <button class="key c-button" onclick="cl()">C</button>
       <button class="key equal" onclick="compute()">=</button>
     </div>
   </div>
