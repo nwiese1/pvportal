@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PV Portal</title>
+<link rel="icon" type="image/png" href="https://i.postimg.cc/W3xkS5pB/download.png">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+body {
+  margin: 0;
+  background-color: #202124;
+  overflow: hidden;
+}
+.app-bar {
+  background-color: #202124;
+  color: white;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 16px;
+  border-bottom: 1px solid #444;
+  z-index: 5;
+}
+.app-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.app-bar-left img {
+  height: 24px;
+}
+.app-bar-left span {
+  font-weight: 600;
+  font-size: 15px;
+}
+.portals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.portal-box {
+  background: #333;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  text-decoration: none;
+}
+.portal-box img {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+.portal-box:hover {
+  background: #555;
+}
+.secret-link {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  background: transparent;
+  z-index: 9999;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="app-bar">
+  <div class="app-bar-left">
+    <img src="https://i.postimg.cc/PqqSS3dH/1f522.png" alt="Numbers Emoji">
+    <span>Calculator</span>
+  </div>
+</div>
+
+<p>hi</p>
+
+</body>
+</html>
