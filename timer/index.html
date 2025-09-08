@@ -55,14 +55,15 @@
   }
 
   .input-countdown input {
-    width: 60px;
-    padding: 6px;
+    width: 80px;
+    height: 60px;
     font-size: 1.5rem;
     text-align: center;
-    border-radius:8px;
+    border-radius: 12px;
     border:none;
-    background:#3c4043;
+    background:#303134;
     color:white;
+    cursor: text;
   }
 
   .controls {
@@ -71,13 +72,14 @@
   }
 
   .controls button {
+    width: 80px;
+    height: 60px;
     font-size:2rem;
     border:none;
     border-radius:12px;
     background:#303134;
     color:#EAEAEA;
     cursor:pointer;
-    padding:12px 28px;
     transition: all 0.2s;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   }
@@ -86,8 +88,8 @@
 
   @media screen and (max-width:600px){
     .time-display { font-size:3.5rem; padding:24px 40px; }
-    .controls button { font-size:1.5rem; padding:8px 20px; }
-    .input-countdown input { width: 45px; font-size:1.2rem; }
+    .controls button { font-size:1.5rem; width:60px; height:50px; }
+    .input-countdown input { width: 60px; height:50px; font-size:1.2rem; }
   }
 </style>
 </head>
@@ -113,7 +115,7 @@
     <div class="controls">
       <button id="start">▶️</button>
       <button id="reset">⏹️</button>
-      <button id="switch">⏱️</button>
+      <button id="switch">⏰</button>
     </div>
   </div>
 
@@ -187,9 +189,11 @@
       if(mode==='stopwatch'){
         mode='countdown';
         countdownInputs.style.display='flex';
+        switchBtn.textContent='⏳';
       } else {
         mode='stopwatch';
         countdownInputs.style.display='none';
+        switchBtn.textContent='⏰';
       }
     }
 
