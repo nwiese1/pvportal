@@ -6,90 +6,23 @@
 <link rel="icon" type="image/png" href="https://i.postimg.cc/W3xkS5pB/download.png">
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 <style>
-* {
-  font-family: 'Quicksand', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html, body {
-  height: 100%;
-  width: 100%;
-  background-color: #202124;
-}
-body {
-  display: flex;
-  flex-direction: column;
-}
-.app-bar {
-  background-color: #202124;
-  color: white;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  font-size: 16px;
-  border-bottom: 1px solid #444;
-  flex-shrink: 0;
-  z-index: 5;
-}
-.app-bar-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.app-bar-left img {
-  height: 24px;
-}
-.app-bar-left span {
-  font-weight: 600;
-  font-size: 15px;
-}
-.portals-grid {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  overflow-y: auto;
-}
-.portal-box {
-  background: #333;
-  padding: 10px;
-  text-align: center;
-  border-radius: 8px;
-  cursor: pointer;
-  color: white;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 150px;
-  text-decoration: none;
-}
-.portal-box img {
-  width: 40%;
-  height: auto;
-  max-height: 50%;
-  object-fit: contain;
-  margin-bottom: 8px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-.portal-box:hover {
-  background: #555;
-}
-@media (max-width: 1200px) {
-  .portal-box img { max-height: 45%; }
-}
-@media (max-width: 800px) {
-  .portal-box img { max-height: 40%; }
-}
-@media (max-width: 500px) {
-  .portal-box img { max-height: 35%; }
-}
+* { font-family: 'Quicksand', sans-serif; margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; width:100%; background-color:#202124; }
+body { display:flex; flex-direction:column; }
+.app-bar { background-color:#202124; color:white; height:48px; display:flex; align-items:center; justify-content:space-between; padding:0 1rem; font-size:16px; border-bottom:1px solid #444; flex-shrink:0; z-index:5; }
+.app-bar-left { display:flex; align-items:center; gap:10px; }
+.app-bar-left img { height:24px; }
+.app-bar-left span { font-weight:600; font-size:15px; }
+.app-bar-right { display:flex; align-items:center; gap:8px; }
+button { height:32px; width:32px; font-size:16px; border-radius:4px; cursor:pointer; display:flex; align-items:center; justify-content:center; background-color:#444; color:white; transition: all 0.3s ease; border:none; }
+button:hover { background-color:#555; }
+.portals-grid { flex-grow:1; display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:20px; padding:20px; overflow-y:auto; }
+.portal-box { background:#333; padding:10px; text-align:center; border-radius:8px; cursor:pointer; color:white; font-size:16px; transition:all 0.3s ease; display:flex; flex-direction:column; align-items:center; justify-content:center; height:150px; text-decoration:none; }
+.portal-box img { width:40%; height:auto; max-height:50%; object-fit:contain; margin-bottom:8px; border-radius:6px; transition:all 0.3s ease; }
+.portal-box:hover { background:#555; }
+@media (max-width:1200px){ .portal-box img{ max-height:45%; } }
+@media (max-width:800px){ .portal-box img{ max-height:40%; } }
+@media (max-width:500px){ .portal-box img{ max-height:35%; } }
 </style>
 </head>
 <body>
@@ -98,93 +31,39 @@ body {
     <img src="https://i.postimg.cc/W3xkS5pB/download.png" alt="PV Schools Logo">
     <span>PV Portal</span>
   </div>
+  <div class="app-bar-right">
+    <button id="calculator-btn">🧮</button>
+  </div>
 </div>
 
 <div class="portals-grid">
-  <a class="portal-box" href="http://www.google.com/url?q=http%3A%2F%2Fexpress.adobe.com%2Fa%2Fpvschools.net&sa=D&sntz=1&usg=AOvVaw3V0J4yHmSYSZGumPuDv5ND" target="_blank">
-    <img src="https://i.postimg.cc/43hVDCK8/unnamed.png" alt="Adobe Express">
-    Adobe Express
-  </a>
-  <a class="portal-box" href="https://www.google.com/url?q=https%3A%2F%2Fclever.com%2Fin%2Fpvschools&sa=D&sntz=1&usg=AOvVaw0CStuwi3KyuZ0Li233KGmI" target="_blank">
-    <img src="https://i.postimg.cc/FF0GfSHP/Clever-Logo.jpg" alt="Clever">
-    Clever Portal
-  </a>
-  <a class="portal-box" href="https://www.google.com/url?q=https%3A%2F%2Fpvusd.follettdestiny.com%2F&sa=D&sntz=1&usg=AOvVaw1ENY1xoCGv9CiL5-u6rVtr" target="_blank">
-    <img src="https://i.postimg.cc/zfJYMNPN/channels4-profile-removebg-preview.png" alt="Follett Destiny">
-    Destiny Discover
-  </a>
-  <a class="portal-box" href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank">
-    <img src="https://i.postimg.cc/Y2DHDjFz/Google-Calendar-icon-2020-svg.png" alt="Google Calendar">
-    Google Calendar
-  </a>
-  <a class="portal-box" href="https://drive.google.com/drive/home" target="_blank">
-    <img src="https://i.postimg.cc/J4mGwSvb/New-Project-3.png" alt="Google Drive">
-    Google Drive
-  </a>
-  <a class="portal-box" href="https://docs.google.com/document/u/0/?tgif=d" target="_blank">
-    <img src="https://i.postimg.cc/zfPg8pKq/New-Project-2.png" alt="Google Docs">
-    Google Docs
-  </a>
-  <a class="portal-box" href="https://docs.google.com/presentation/u/0/?tgif=d" target="_blank">
-    <img src="https://i.postimg.cc/tR6xG3TH/New-Project-1.png" alt="Google Slides">
-    Google Slides
-  </a>
-  <a class="portal-box" href="https://classroom.google.com/h" target="_blank">
-    <img src="https://i.postimg.cc/NFtfcrJg/New-Project-4.png" alt="Google Classroom">
-    Google Classroom
-  </a>
-  <a class="portal-box" href="https://mail.google.com/mail/u/0/" target="_blank">
-    <img src="https://i.postimg.cc/MKXmBMZP/New-Project.png" alt="Google Mail">
-    Google Mail
-  </a>
-  <a class="portal-box" href="https://www.google.com/url?q=https%3A%2F%2Fparadisevalleyaz.infinitecampus.org%2Fcampus%2Fportal%2Fparadisevalley.jsp&sa=D&sntz=1&usg=AOvVaw2dHtqRWq87I5s-xzWqauqu" target="_blank">
-    <img src="https://i.postimg.cc/Z0k1Lzy1/unnamed-1.png" alt="Infinite Campus">
-    Infinite Campus
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=e50a9862bc4fdeafda80&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fwww.khanacademy.org%2Flogin%2Fclever%2Fredirect&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/MpHNM8pZ/unnamed.jpg" alt="Khan Academy">
-    Khan Academy
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=58a2387860cc09e7d1d1&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Flogin.mhcampus.com%2FSSO%2FDI%2FClever%2FLTIHandler.ashx%3Ftool_id%3Dconnected&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/rwDfwP04/Mc-Graw-Hill-Education-wordmark-svg.png" alt="McGraw Hill">
-    McGraw Hill
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=831ad05418aa114dea2a&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fwww.noredink.com%2Fauth%2Fclever%2Fcallback&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/CL3qbPrk/1747062.png" alt="NoRedInk">
-    NoRedInk
-  </a>
-  <a class="portal-box" href="https://passwordreset.pvschools.net/" target="_blank">
-    <img src="https://i.postimg.cc/0QYWqK6H/lock.png" alt="Password Reset">
-    Password Reset
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=ecb2be8091fd25069766&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fpass.securly.com%2Flogin%2Fweb%2Fclever&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/zvh3XWZK/unnamed-2.png" alt="Pass">
-    Pass
-  </a>
-  <a class="portal-box" href="https://www.pvschools.net/" target="_blank">
-    <img src="https://i.postimg.cc/gJS363T7/images-1.jpg" alt="PVSchools">
-    PVSchools
-  </a>
-  <a class="portal-box" href="http://www.google.com/url?q=http%3A%2F%2Fonline.schoolcity.com%2Fpvschools&sa=D&sntz=1&usg=AOvVaw09Udsej4zygyrHhsoLlwPq" target="_blank">
-    <img src="https://i.postimg.cc/wTLvY6FR/images.jpg" alt="SchoolCity">
-    SchoolCity
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=73a8b989d400a854ce7e&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fsubscriptions.teachtci.com%2Foauth%2Fclever&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/bNKj8M3G/icon-4af7e64.png" alt="TCI">
-    TCI
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=829e9d1a9790228c45fa&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Ftii-connect-california.turnitin.com%2Fsso%2Foauth%2Fclever%2Fstart%3Fservice%3DTFS&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/Lsh98fj5/images.png" alt="TurnItIn">
-    TurnItIn
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=864e828a4f44ba6c448d&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Flearningsite.waysidepublishing.com%2Fsso%2Fclever&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/5y51RmW7/images-1.png" alt="Wayside">
-    Wayside
-  </a>
-  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=a7018e03a6a5814a07a5&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fwww.zearn.org%2Fusers%2Fauth%2Fclever%2Fcallback&response_type=code" target="_blank">
-    <img src="https://i.postimg.cc/63cF46n3/icon-e2efc1d.png" alt="Zearn">
-    Zearn
-  </a>
+  <a class="portal-box" href="http://www.google.com/url?q=http%3A%2F%2Fexpress.adobe.com%2Fa%2Fpvschools.net&sa=D&sntz=1&usg=AOvVaw3V0J4yHmSYSZGumPuDv5ND" target="_blank"><img src="https://i.postimg.cc/43hVDCK8/unnamed.png" alt="Adobe Express">Adobe Express</a>
+  <a class="portal-box" href="https://www.google.com/url?q=https%3A%2F%2Fclever.com%2Fin%2Fpvschools&sa=D&sntz=1&usg=AOvVaw0CStuwi3KyuZ0Li233KGmI" target="_blank"><img src="https://i.postimg.cc/FF0GfSHP/Clever-Logo.jpg" alt="Clever">Clever Portal</a>
+  <a class="portal-box" href="https://www.google.com/url?q=https%3A%2F%2Fpvusd.follettdestiny.com%2F&sa=D&sntz=1&usg=AOvVaw1ENY1xoCGv9CiL5-u6rVtr" target="_blank"><img src="https://i.postimg.cc/zfJYMNPN/channels4-profile-removebg-preview.png" alt="Follett Destiny">Destiny Discover</a>
+  <a class="portal-box" href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank"><img src="https://i.postimg.cc/Y2DHDjFz/Google-Calendar-icon-2020-svg.png" alt="Google Calendar">Google Calendar</a>
+  <a class="portal-box" href="https://drive.google.com/drive/home" target="_blank"><img src="https://i.postimg.cc/J4mGwSvb/New-Project-3.png" alt="Google Drive">Google Drive</a>
+  <a class="portal-box" href="https://docs.google.com/document/u/0/?tgif=d" target="_blank"><img src="https://i.postimg.cc/zfPg8pKq/New-Project-2.png" alt="Google Docs">Google Docs</a>
+  <a class="portal-box" href="https://docs.google.com/presentation/u/0/?tgif=d" target="_blank"><img src="https://i.postimg.cc/tR6xG3TH/New-Project-1.png" alt="Google Slides">Google Slides</a>
+  <a class="portal-box" href="https://classroom.google.com/h" target="_blank"><img src="https://i.postimg.cc/NFtfcrJg/New-Project-4.png" alt="Google Classroom">Google Classroom</a>
+  <a class="portal-box" href="https://mail.google.com/mail/u/0/" target="_blank"><img src="https://i.postimg.cc/MKXmBMZP/New-Project.png" alt="Google Mail">Google Mail</a>
+  <a class="portal-box" href="https://www.google.com/url?q=https%3A%2F%2Fparadisevalleyaz.infinitecampus.org%2Fcampus%2Fportal%2Fparadisevalley.jsp&sa=D&sntz=1&usg=AOvVaw2dHtqRWq87I5s-xzWqauqu" target="_blank"><img src="https://i.postimg.cc/Z0k1Lzy1/unnamed-1.png" alt="Infinite Campus">Infinite Campus</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=e50a9862bc4fdeafda80&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fwww.khanacademy.org%2Flogin%2Fclever%2Fredirect&response_type=code" target="_blank"><img src="https://i.postimg.cc/MpHNM8pZ/unnamed.jpg" alt="Khan Academy">Khan Academy</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=58a2387860cc09e7d1d1&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Flogin.mhcampus.com%2FSSO%2FDI%2FClever%2FLTIHandler.ashx%3Ftool_id%3Dconnected&response_type=code" target="_blank"><img src="https://i.postimg.cc/rwDfwP04/Mc-Graw-Hill-Education-wordmark-svg.png" alt="McGraw Hill">McGraw Hill</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=831ad05418aa114dea2a&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fwww.noredink.com%2Fauth%2Fclever%2Fcallback&response_type=code" target="_blank"><img src="https://i.postimg.cc/CL3qbPrk/1747062.png" alt="NoRedInk">NoRedInk</a>
+  <a class="portal-box" href="https://passwordreset.pvschools.net/" target="_blank"><img src="https://i.postimg.cc/0QYWqK6H/lock.png" alt="Password Reset">Password Reset</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=ecb2be8091fd25069766&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fpass.securly.com%2Flogin%2Fweb%2Fclever&response_type=code" target="_blank"><img src="https://i.postimg.cc/zvh3XWZK/unnamed-2.png" alt="Pass">Pass</a>
+  <a class="portal-box" href="https://www.pvschools.net/" target="_blank"><img src="https://i.postimg.cc/gJS363T7/images-1.jpg" alt="PVSchools">PVSchools</a>
+  <a class="portal-box" href="http://www.google.com/url?q=http%3A%2F%2Fonline.schoolcity.com%2Fpvschools&sa=D&sntz=1&usg=AOvVaw09Udsej4zygyrHhsoLlwPq" target="_blank"><img src="https://i.postimg.cc/wTLvY6FR/images.jpg" alt="SchoolCity">SchoolCity</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=73a8b989d400a854ce7e&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fsubscriptions.teachtci.com%2Foauth%2Fclever&response_type=code" target="_blank"><img src="https://i.postimg.cc/bNKj8M3G/icon-4af7e64.png" alt="TCI">TCI</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=829e9d1a9790228c45fa&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Ftii-connect-california.turnitin.com%2Fsso%2Foauth%2Fclever%2Fstart%3Fservice%3DTFS&response_type=code" target="_blank"><img src="https://i.postimg.cc/Lsh98fj5/images.png" alt="TurnItIn">TurnItIn</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=864e828a4f44ba6c448d&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Flearningsite.waysidepublishing.com%2Fsso%2Fclever&response_type=code" target="_blank"><img src="https://i.postimg.cc/5y51RmW7/images-1.png" alt="Wayside">Wayside</a>
+  <a class="portal-box" href="https://clever.com/oauth/authorize?channel=clever-portal&client_id=a7018e03a6a5814a07a5&confirmed=true&district_id=56fecc06918e100100000198&redirect_uri=https%3A%2F%2Fwww.zearn.org%2Fusers%2Fauth%2Fclever%2Fcallback&response_type=code" target="_blank"><img src="https://i.postimg.cc/63cF46n3/icon-e2efc1d.png" alt="Zearn">Zearn</a>
 </div>
+
+<script>
+document.getElementById('calculator-btn').addEventListener('click', () => {
+  window.location.href = '/calculator/';
+});
+</script>
 </body>
 </html>
