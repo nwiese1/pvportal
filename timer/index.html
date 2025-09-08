@@ -30,12 +30,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
     padding: 20px;
   }
 
   .time-display {
-    font-size: 6rem;
+    font-size: 5rem;
     color:#EAEAEA;
     background:#303134;
     border-radius:20px;
@@ -45,6 +45,24 @@
     width:90%;
     max-width:600px;
     box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  .input-countdown {
+    display: flex;
+    gap:10px;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .input-countdown input {
+    width: 60px;
+    padding: 6px;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius:8px;
+    border:none;
+    background:#3c4043;
+    color:white;
   }
 
   .controls {
@@ -67,8 +85,9 @@
   .controls button:hover { background:#3c4043; }
 
   @media screen and (max-width:600px){
-    .time-display { font-size:4rem; padding:24px 40px; }
+    .time-display { font-size:3.5rem; padding:24px 40px; }
     .controls button { font-size:1.5rem; padding:8px 20px; }
+    .input-countdown input { width: 45px; font-size:1.2rem; }
   }
 </style>
 </head>
@@ -82,9 +101,19 @@
 
   <div class="timer-container">
     <div class="time-display" id="time">00:00:00</div>
+
+    <div class="input-countdown" id="countdown-inputs" style="display:none;">
+      <input type="number" id="hours" placeholder="HH" min="0">
+      <span>:</span>
+      <input type="number" id="minutes" placeholder="MM" min="0" max="59">
+      <span>:</span>
+      <input type="number" id="seconds" placeholder="SS" min="0" max="59">
+    </div>
+
     <div class="controls">
       <button id="start">▶️</button>
       <button id="reset">⏹️</button>
+      <button id="switch">⏱️</button>
     </div>
   </div>
 
@@ -92,10 +121,17 @@
     const timeDisplay = document.getElementById('time');
     const startBtn = document.getElementById('start');
     const resetBtn = document.getElementById('reset');
+    const switchBtn = document.getElementById('switch');
+
+    const countdownInputs = document.getElementById('countdown-inputs');
+    const hoursInput = document.getElementById('hours');
+    const minutesInput = document.getElementById('minutes');
+    const secondsInput = document.getElementById('seconds');
 
     let interval = null;
     let totalSeconds = 0;
     let running = false;
+    let mode = 'stopwatch'; // 'stopwatch' or 'countdown'
 
     function updateDisplay(sec){
       const h = String(Math.floor(sec/3600)).padStart(2,'0');
@@ -110,22 +146,56 @@
         running=false;
         startBtn.textContent = '▶️';
       } else {
+        if(mode==='countdown' && totalSeconds===0){
+          const h = parseInt(hoursInput.value)||0;
+          const m = parseInt(minutesInput.value)||0;
+          const s = parseInt(secondsInput.value)||0;
+          totalSeconds = h*3600 + m*60 + s;
+          if(totalSeconds<=0) return;
+        }
+
         running=true;
         startBtn.textContent = '⏸️';
-        interval = setInterval(()=>{ totalSeconds++; updateDisplay(totalSeconds); },1000);
+
+        interval = setInterval(()=>{
+          if(mode==='stopwatch'){
+            totalSeconds++;
+          } else {
+            totalSeconds--;
+            if(totalSeconds<=0){
+              clearInterval(interval);
+              running=false;
+              startBtn.textContent='▶️';
+              totalSeconds=0;
+            }
+          }
+          updateDisplay(totalSeconds);
+        },1000);
       }
     }
 
     function resetTimer(){
       clearInterval(interval);
-      totalSeconds=0;
       running=false;
+      totalSeconds=0;
       updateDisplay(0);
       startBtn.textContent = '▶️';
     }
 
+    function switchMode(){
+      resetTimer();
+      if(mode==='stopwatch'){
+        mode='countdown';
+        countdownInputs.style.display='flex';
+      } else {
+        mode='stopwatch';
+        countdownInputs.style.display='none';
+      }
+    }
+
     startBtn.addEventListener('click', startPause);
     resetBtn.addEventListener('click', resetTimer);
+    switchBtn.addEventListener('click', switchMode);
 
     updateDisplay(0);
   </script>
