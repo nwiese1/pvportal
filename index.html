@@ -8,11 +8,18 @@
 <style>
 * {
   font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #202124;
 }
 body {
-  margin: 0;
-  background-color: #202124;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .app-bar {
   background-color: #202124;
@@ -23,6 +30,7 @@ body {
   padding: 0 1rem;
   font-size: 16px;
   border-bottom: 1px solid #444;
+  flex-shrink: 0;
   z-index: 5;
 }
 .app-bar-left {
@@ -38,10 +46,12 @@ body {
   font-size: 15px;
 }
 .portals-grid {
+  flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
   padding: 20px;
+  overflow-y: auto;
 }
 .portal-box {
   background: #333;
@@ -70,16 +80,6 @@ body {
 }
 .portal-box:hover {
   background: #555;
-}
-.secret-link {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 6px;
-  height: 6px;
-  background: transparent;
-  z-index: 9999;
-  cursor: pointer;
 }
 @media (max-width: 1200px) {
   .portal-box img { max-height: 45%; }
