@@ -7,8 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 <style>
-  * { font-family: 'Quicksand', sans-serif; box-sizing: border-box; }
-  body { margin: 0; background-color: #202124; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+  * { font-family: 'Quicksand', sans-serif; box-sizing: border-box; margin:0; padding:0; }
+  html, body { height: 100%; width: 100%; }
+
+  body { 
+    display: flex; 
+    flex-direction: column; 
+    background-color: #202124; 
+  }
 
   .app-bar {
     background-color: #202124;
@@ -22,28 +28,27 @@
     flex-shrink: 0;
     z-index: 5;
   }
+
   .app-bar-left { display: flex; align-items: center; gap: 10px; }
   .app-bar-left img { height: 24px; }
   .app-bar-left span { font-weight: 600; font-size: 15px; }
 
   .calculator-container {
     flex-grow: 1;
-    width: 100%;
-    background: #202124;
     display: flex;
     flex-direction: column;
-    padding: 24px;
-    overflow: hidden;
+    padding: 12px;
+    width: 100%;
   }
 
   #display {
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: #EAEAEA;
     background: #202124;
     border-radius: 12px;
     min-height: 64px;
     padding: 12px 20px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     text-align: right;
     border: none;
     outline: none;
@@ -54,13 +59,15 @@
   .keys {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
+    grid-auto-rows: 1fr;
+    gap: 8px;
+    flex-grow: 1;
   }
 
   .key {
     border: none;
     border-radius: 8px;
-    padding: 16px 0;
+    padding: 0;
     font-size: 1rem;
     cursor: pointer;
     user-select: none;
@@ -68,28 +75,23 @@
     justify-content: center;
     align-items: center;
     transition: background 0.2s;
+    background: #303134;
+    color: #E8EAED;
   }
 
-  /* Google-style button colors */
-  .key.number { background: #303134; color: #E8EAED; }
-  .key.number:hover { background: #3c4043; }
-
-  .key.operator { background: #f57c00; color: #fff; }
-  .key.operator:hover { background: #ff8f23; }
-
-  .key.function { background: #3c4043; color: #fff; }
-  .key.function:hover { background: #5f6368; }
-
-  .key.special { background: #5f6368; color: #fff; }
-  .key.special:hover { background: #7c7c7c; }
+  .key:hover { background: #3c4043; }
 
   .key.equal { background: #1a73e8; color: #fff; }
   .key.equal:hover { background: #3367d6; }
 
-  @media screen and (max-width: 500px) {
-    #display { font-size: 1.6rem; min-height: 50px; padding: 8px 12px; margin-bottom: 12px; }
-    .key { font-size: 0.9rem; padding: 12px 0; }
+  .key.special { background: #303134; color: #fff; }
+  .key.special:hover { background: #3c4043; }
+
+  @media screen and (max-width: 600px) {
+    #display { font-size: 1.5rem; min-height: 50px; padding: 8px 12px; margin-bottom: 8px; }
+    .key { font-size: 0.9rem; }
   }
+
 </style>
 </head>
 <body>
@@ -103,47 +105,47 @@
     <textarea id="display" rows="1" spellcheck="false"></textarea>
     <div class="keys">
       <!-- Top row -->
-      <button class="key function" onclick="add('Rad')">Rad</button>
-      <button class="key function" onclick="add('Deg')">Deg</button>
-      <button class="key function" onclick="add('x!')">x!</button>
-      <button class="key function" onclick="add('(')">(</button>
-      <button class="key function" onclick="add(')')">)</button>
-      <button class="key.special" onclick="cl()">AC</button>
+      <button class="key" onclick="add('Rad')">Rad</button>
+      <button class="key" onclick="add('Deg')">Deg</button>
+      <button class="key" onclick="add('x!')">x!</button>
+      <button class="key" onclick="add('(')">(</button>
+      <button class="key" onclick="add(')')">)</button>
+      <button class="key" onclick="cl()">AC</button>
 
       <!-- Second row -->
-      <button class="key.function" onclick="add('Inv')">Inv</button>
-      <button class="key.function" onclick="add('sin(')">sin</button>
-      <button class="key.function" onclick="add('ln(')">ln</button>
-      <button class="key.number" onclick="add('7')">7</button>
-      <button class="key.number" onclick="add('8')">8</button>
-      <button class="key.operator" onclick="add('/')">÷</button>
+      <button class="key" onclick="add('Inv')">Inv</button>
+      <button class="key" onclick="add('sin(')">sin</button>
+      <button class="key" onclick="add('ln(')">ln</button>
+      <button class="key" onclick="add('7')">7</button>
+      <button class="key" onclick="add('8')">8</button>
+      <button class="key" onclick="add('/')">÷</button>
 
       <!-- Third row -->
-      <button class="key.function" onclick="add('π')">π</button>
-      <button class="key.function" onclick="add('cos(')">cos</button>
-      <button class="key.function" onclick="add('log(')">log</button>
-      <button class="key.number" onclick="add('4')">4</button>
-      <button class="key.number" onclick="add('5')">5</button>
-      <button class="key.operator" onclick="add('*')">×</button>
+      <button class="key" onclick="add('π')">π</button>
+      <button class="key" onclick="add('cos(')">cos</button>
+      <button class="key" onclick="add('log(')">log</button>
+      <button class="key" onclick="add('4')">4</button>
+      <button class="key" onclick="add('5')">5</button>
+      <button class="key" onclick="add('*')">×</button>
 
       <!-- Fourth row -->
-      <button class="key.function" onclick="add('e')">e</button>
-      <button class="key.function" onclick="add('tan(')">tan</button>
-      <button class="key.function" onclick="add('√(')">√</button>
-      <button class="key.number" onclick="add('1')">1</button>
-      <button class="key.number" onclick="add('2')">2</button>
-      <button class="key.operator" onclick="add('-')">−</button>
+      <button class="key" onclick="add('e')">e</button>
+      <button class="key" onclick="add('tan(')">tan</button>
+      <button class="key" onclick="add('√(')">√</button>
+      <button class="key" onclick="add('1')">1</button>
+      <button class="key" onclick="add('2')">2</button>
+      <button class="key" onclick="add('-')">−</button>
 
       <!-- Fifth row -->
-      <button class="key.function" onclick="add('Ans')">Ans</button>
-      <button class="key.function" onclick="add('EXP')">EXP</button>
-      <button class="key.function" onclick="add('^(')">x^y</button>
-      <button class="key.number" onclick="add('0')">0</button>
-      <button class="key.special" onclick="add('.')">.</button>
-      <button class="key.operator" onclick="add('+')">+</button>
+      <button class="key" onclick="add('Ans')">Ans</button>
+      <button class="key" onclick="add('EXP')">EXP</button>
+      <button class="key" onclick="add('^(')">x^y</button>
+      <button class="key" onclick="add('0')">0</button>
+      <button class="key" onclick="add('.')">.</button>
+      <button class="key" onclick="add('+')">+</button>
 
       <!-- Equal button spans -->
-      <button class="key.equal" onclick="compute()" style="grid-column: span 6;">=</button>
+      <button class="key equal" onclick="compute()" style="grid-column: span 6;">=</button>
     </div>
   </div>
 
