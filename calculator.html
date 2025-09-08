@@ -4,243 +4,152 @@
 <meta charset="UTF-8" />
 <title>PV Portal - Calculator</title>
 <link rel="icon" type="image/png" href="https://i.postimg.cc/W3xkS5pB/download.png" />
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 <style>
-  * {
-    font-family: 'Quicksand', sans-serif;
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    background-color: #202124;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .app-bar {
-    background-color: #202124;
-    color: white;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    font-size: 16px;
-    border-bottom: 1px solid #444;
-    flex-shrink: 0;
-    z-index: 5;
-  }
-  .app-bar-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .app-bar-left img {
-    height: 24px;
-  }
-  .app-bar-left span {
-    font-weight: 600;
-    font-size: 15px;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+  html, body { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: #f5f5f5; }
 
   .calculator-container {
-    flex-grow: 1;
     width: 100%;
-    background: #222;
+    max-width: 400px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
-    padding: 24px;
     overflow: hidden;
+    font-size: 1rem;
   }
 
   #display {
-    font-size: 2.2rem;
-    color: #EAEAEA;
-    background: #333;
-    border-radius: 12px;
-    min-height: 64px;
-    padding: 12px 20px;
-    margin-bottom: 26px;
+    width: 100%;
+    height: 80px;
+    font-size: 2.5rem;
     text-align: right;
+    padding: 15px;
     border: none;
+    background: #ffffff;
     outline: none;
-    resize: none;
-    color-scheme: dark;
   }
 
   .keys {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 10px;
+    padding: 10px;
   }
 
-  /* --- BUTTON COLORS --- */
   .key {
     border: none;
-    border-radius: 8px;
-    padding: 18px 0;
-    font-size: 1.4rem;
+    border-radius: 50%;
+    padding: 20px;
+    font-size: 1.3rem;
     cursor: pointer;
-    user-select: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.2s;
-  }
-  .key.number {
-    background: #3C4043;
-    color: #EAEAEA;
-  }
-  .key.number:hover { background: #4a4f52; }
-
-  .key.operator {
-    background: #F57C00;
-    color: white;
-    font-weight: bold;
-  }
-  .key.operator:hover { background: #ff8f23; }
-
-  .key.function {
-    background: #5C6BC0;
-    color: white;
-  }
-  .key.function:hover { background: #7986CB; }
-
-  .key.special {
-    background: #757575;
-    color: #000;
+    transition: all 0.2s;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
   }
 
-  .key.equal {
-    background: #2E7D32;
-    grid-column: 4 / 5;
-    grid-row: 5 / 7;
-    color: white;
-    font-weight: bold;
-  }
-  .key.equal:hover { background: #388E3C; }
+  .key.number { background: #ffffff; color: #000; }
+  .key.number:hover { background: #e0e0e0; }
 
-  .key.c-button {
-    background: #D32F2F;
-    color: white;
-  }
-  .key.c-button:hover { background: #E53935; }
+  .key.operator { background: #f9a825; color: #fff; }
+  .key.operator:hover { background: #ffb300; }
 
-  .key.del-button {
-    background: #607D8B;
-    color: white;
-  }
-  .key.del-button:hover { background: #78909C; }
+  .key.function { background: #f1f3f4; color: #000; }
+  .key.function:hover { background: #e0e0e0; }
 
-  @media screen and (max-width: 500px) {
-    #display {
-      font-size: 1.6rem;
-      min-height: 50px;
-      padding: 8px 12px;
-      margin-bottom: 18px;
-    }
-    .key {
-      font-size: 1rem;
-      padding: 14px 0;
-    }
+  .key.equal { background: #4285f4; color: #fff; grid-column: span 2; }
+  .key.equal:hover { background: #3367d6; }
+
+  .key.c-button { background: #d32f2f; color: #fff; }
+  .key.c-button:hover { background: #f44336; }
+
+  .key.del-button { background: #9e9e9e; color: #fff; }
+  .key.del-button:hover { background: #bdbdbd; }
+
+  @media (max-width: 500px) {
+    #display { height: 60px; font-size: 2rem; padding: 10px; }
+    .key { padding: 15px; font-size: 1rem; }
   }
 </style>
 </head>
 <body>
-  <div class="app-bar">
-    <div class="app-bar-left">
-      <img src="https://i.postimg.cc/PqqSS3dH/1f522.png" alt="Logo" />
-      <span>Calculator</span>
-    </div>
+<div class="calculator-container">
+  <textarea id="display" rows="1" spellcheck="false"></textarea>
+  <div class="keys">
+    <button class="key function" onclick="add('sqrt(')">√</button>
+    <button class="key function" onclick="add('log(')">log</button>
+    <button class="key function" onclick="add('exp(')">exp</button>
+    <button class="key operator" onclick="add('/')">÷</button>
+
+    <button class="key number" onclick="add('7')">7</button>
+    <button class="key number" onclick="add('8')">8</button>
+    <button class="key number" onclick="add('9')">9</button>
+    <button class="key operator" onclick="add('*')">×</button>
+
+    <button class="key number" onclick="add('4')">4</button>
+    <button class="key number" onclick="add('5')">5</button>
+    <button class="key number" onclick="add('6')">6</button>
+    <button class="key operator" onclick="add('-')">−</button>
+
+    <button class="key number" onclick="add('1')">1</button>
+    <button class="key number" onclick="add('2')">2</button>
+    <button class="key number" onclick="add('3')">3</button>
+    <button class="key operator" onclick="add('+')">+</button>
+
+    <button class="key number" onclick="add('0')">0</button>
+    <button class="key function" onclick="add('.')">.</button>
+    <button class="key equal" onclick="compute()">=</button>
+    <button class="key del-button" onclick="del()">⌫</button>
+
+    <button class="key c-button" onclick="cl()">C</button>
+    <button class="key function" onclick="add('pi')">π</button>
+    <button class="key function" onclick="add('e')">e</button>
   </div>
-  <div class="calculator-container">
-    <textarea id="display" rows="1" spellcheck="false"></textarea>
-    <div class="keys">
-      <!-- First row -->
-      <button class="key function" onclick="add('sqrt(')">√</button>
-      <button class="key function" onclick="add('log(')">log</button>
-      <button class="key function" onclick="add('exp(')">exp</button>
-      <button class="key operator" onclick="add('/')">÷</button>
+</div>
 
-      <!-- Second row -->
-      <button class="key number" onclick="add('7')">7</button>
-      <button class="key number" onclick="add('8')">8</button>
-      <button class="key number" onclick="add('9')">9</button>
-      <button class="key operator" onclick="add('*')">×</button>
-
-      <!-- Third row -->
-      <button class="key number" onclick="add('4')">4</button>
-      <button class="key number" onclick="add('5')">5</button>
-      <button class="key number" onclick="add('6')">6</button>
-      <button class="key operator" onclick="add('-')">−</button>
-
-      <!-- Fourth row -->
-      <button class="key number" onclick="add('1')">1</button>
-      <button class="key number" onclick="add('2')">2</button>
-      <button class="key number" onclick="add('3')">3</button>
-      <button class="key operator" onclick="add('+')">+</button>
-
-      <!-- Fifth row -->
-      <button class="key number" onclick="add('0')">0</button>
-      <button class="key special" onclick="add('.')">.</button>
-      <button class="key del-button" onclick="del()">⌫</button>
-      <button class="key equal" onclick="compute()">=</button>
-
-      <!-- Sixth row -->
-      <button class="key c-button" onclick="cl()">C</button>
-      <button class="key function" onclick="add('pi')">π</button>
-      <button class="key function" onclick="add('e')">e</button>
-      <!-- = button spans into this row -->
-    </div>
-  </div>
-  <script>
-    const display = document.getElementById("display");
-    function add(v) {
-      const start = display.selectionStart;
-      const end = display.selectionEnd;
-      const text = display.value;
-      display.value = text.substring(0, start) + v + text.substring(end);
-      display.selectionStart = display.selectionEnd = start + v.length;
-      display.focus();
+<script>
+  const display = document.getElementById("display");
+  function add(v) {
+    const start = display.selectionStart;
+    const end = display.selectionEnd;
+    const text = display.value;
+    display.value = text.substring(0,start)+v+text.substring(end);
+    display.selectionStart = display.selectionEnd = start+v.length;
+    display.focus();
+  }
+  function cl() { display.value = ""; display.focus(); }
+  function del() {
+    const start = display.selectionStart;
+    const end = display.selectionEnd;
+    if(start===end && start>0){
+      display.value = display.value.slice(0,start-1)+display.value.slice(end);
+      display.selectionStart = display.selectionEnd = start-1;
+    } else {
+      display.value = display.value.slice(0,start)+display.value.slice(end);
+      display.selectionStart = display.selectionEnd = start;
     }
-    function cl() {
-      display.value = "";
-      display.focus();
+    display.focus();
+  }
+  function compute() {
+    let expr = display.value;
+    expr = expr.replace(/π|pi/g,"pi");
+    expr = expr.replace(/÷/g,"/");
+    expr = expr.replace(/×/g,"*");
+    try{
+      let result = math.evaluate(expr);
+      display.value = result;
+      display.selectionStart = display.selectionEnd = display.value.length;
+    } catch {
+      display.value = "Error";
+      setTimeout(()=>cl(),1500);
     }
-    function del() {
-      const start = display.selectionStart;
-      const end = display.selectionEnd;
-      if (start === end && start > 0) {
-        display.value = display.value.slice(0, start - 1) + display.value.slice(end);
-        display.selectionStart = display.selectionEnd = start - 1;
-      } else {
-        display.value = display.value.slice(0, start) + display.value.slice(end);
-        display.selectionStart = display.selectionEnd = start;
-      }
-      display.focus();
-    }
-    function compute() {
-      let expr = display.value;
-      expr = expr.replace(/π|pi/g, "pi");
-      expr = expr.replace(/÷/g, "/");
-      expr = expr.replace(/×/g, "*");
-      try {
-        let result = math.evaluate(expr);
-        display.value = result;
-        display.selectionStart = display.selectionEnd = display.value.length;
-      } catch {
-        display.value = "Error";
-        setTimeout(() => cl(), 1500);
-      }
-      display.focus();
-    }
-    display.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        compute();
-      }
-    });
-  </script>
+    display.focus();
+  }
+  display.addEventListener("keydown",(e)=>{
+    if(e.key==="Enter"){ e.preventDefault(); compute(); }
+  });
+</script>
 </body>
 </html>
